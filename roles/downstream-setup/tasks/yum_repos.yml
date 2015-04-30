@@ -1,0 +1,11 @@
+---
+- fail:
+    msg: "Please define the repos to install with the var yum_repos."
+  when: yum_repos|length == 0
+
+- name: Download yum repos to /etc/yum.repos.d
+  get_url:
+    url: "{{ item }}"
+    dest: "/etc/yum.repos.d/{{ item }}.repo"
+    force: yes
+  with_items: yum_repos
