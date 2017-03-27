@@ -1,0 +1,18 @@
+---
+
+- name: "echo foo into shell_status"
+  shell: echo "foo"
+  register: shell_status
+
+- debug:
+    msg: "{{ shell_status.stdout }}"
+  when: shell_status is defined
+
+- debug:
+    msg: "{{ not_defined.stdout }}"
+  when: not_defined is defined and not_defined.stdout == 'foo'
+
+- name: "include based on nonexistent variable"
+  include: play2.yml
+  when: not_defined is defined and not_defined.stdout == 'foo'
+  tag: not_def
