@@ -35,6 +35,11 @@
     - item.mount != '/' and
       not item.mount is match("/(boot|home|opt|root|srv|tmp|usr/local|var|.snapshots)")
 
+- name: Unmount /var/lib/ceph
+  mount:
+    path: "/var/lib/ceph"
+    state: unmounted
+
 ## http://tracker.ceph.com/issues/20533
 ## Trusty version of wipefs lacks --force option
 - name: Wipe filesystems on non-root partitions
